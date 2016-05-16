@@ -1,5 +1,5 @@
 <?php
-namespace trntv\yii\datetime\assets;
+namespace shirase55\yii\datetime\assets;
 
 use yii\web\AssetBundle;
 

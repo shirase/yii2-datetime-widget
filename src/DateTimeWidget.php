@@ -1,5 +1,5 @@
 <?php
-namespace trntv\yii\datetime;
+namespace shirase55\yii\datetime;
 
 use Yii;
 use yii\base\InvalidConfigException;
@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
-use trntv\yii\datetime\assets\DateTimeAsset;
+use shirase55\yii\datetime\assets\DateTimeAsset;
 
 /**
  * Class DateTimeWidget

@@ -5,7 +5,7 @@ Based on [Eonasdan's Bootstrap 3 Date/Time Picker](https://github.com/Eonasdan/b
 
 Demo
 ----
-Since this is a part of [yii2-starter-kit](https://github.com/trntv/yii2-starter-kit) it's demo can be found in starter
+Since this is a part of [yii2-starter-kit](https://github.com/shirase55/yii2-starter-kit) it's demo can be found in starter
 kit demo [here](http://backend.yii2-starter-kit.terentev.net/article/create).
 
 ```
@@ -28,13 +28,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require trntv/yii2-datetime-widget
+php composer.phar require shirase55/yii2-datetime-widget
 ```
 
 or add
 
 ```
-"trntv/yii2-datetime-widget": "*"
+"shirase55/yii2-datetime-widget": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -46,7 +46,7 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 <?php echo $form->field($model, 'attribute')->widget(
-        'trntv\yii\datetime\DateTimeWidget',
+        'shirase55\yii\datetime\DateTimeWidget',
         [ ... options ... ]
     ); 
 ?>
@@ -81,7 +81,7 @@ to enable widget show on textbox focus when used in a button group, use ``allowI
 ActiveField input widget:
 ```php
 <?php echo $form->field($model, 'datetime')->widget(
-    'trntv\yii\datetime\DateTimeWidget',
+    'shirase55\yii\datetime\DateTimeWidget',
     [
         'phpDatetimeFormat' => 'yyyy-MM-dd\'T\'HH:mm:ssZZZZZ',
         'clientOptions' => [
@@ -99,13 +99,13 @@ ActiveField input widget:
 ```
 Standalone widget for date only:
 ```php
-<?php echo trntv\yii\datetime\DateTimeWidget::widget([
+<?php echo shirase55\yii\datetime\DateTimeWidget::widget([
     'phpDatetimeFormat' => 'yyyy-MM-dd',
 ]) ; ?>
 ```
 Add custom JS events:
 ```php
-<?php echo trntv\yii\datetime\DateTimeWidget::widget([
+<?php echo shirase55\yii\datetime\DateTimeWidget::widget([
     'clientEvents' => [
         'dp.change' => 'function(e){
             console.log('dp.change');

@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-        "trntv\\yii\\datetime\\": "src/"
+        "shirase55\\yii\\datetime\\": "src/"
     }
   },
   "config": {
