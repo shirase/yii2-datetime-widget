@@ -1,5 +1,5 @@
 {
-  "name": "trntv/yii2-datetime-widget",
+  "name": "shirase55/yii2-datetime-widget",
   "description": "Date/Time Picker widget for Yii2 framework",
   "type": "yii2-extension",
   "keywords": ["yii2","extension","datetime picker","bootstrap","widget"],
