@@ -1,8 +1,8 @@
 <?php
 namespace shirase55\yii\datetime;
 
-use common\components\helpers\FormatConverter;
 use kartik\base\InputWidget;
+use shirase55\yii2\helpers\FormatConverter;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
