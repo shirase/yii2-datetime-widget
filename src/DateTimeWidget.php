@@ -1,12 +1,13 @@
 <?php
 namespace shirase55\yii\datetime;
 
+use common\components\helpers\FormatConverter;
+use kartik\base\InputWidget;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\widgets\InputWidget;
 use shirase55\yii\datetime\assets\DateTimeAsset;
 
 /**
@@ -36,7 +37,7 @@ class DateTimeWidget extends InputWidget
     /**
      * @var string
      */
-    public $phpDatetimeFormat = 'dd.MM.yyyy, HH:mm';
+    public $phpDatetimeFormat;
     /**
      * @var
      */
@@ -51,10 +52,6 @@ class DateTimeWidget extends InputWidget
      */
     public $inputAddonContent;
     /**
-     * @var array
-     */
-    public $phpMomentMapping = [];
-    /**
      * @var string Moment.js locale
      * Full list of available locales are here:
      * @link https://github.com/moment/moment/tree/develop/locale
@@ -62,30 +59,18 @@ class DateTimeWidget extends InputWidget
     public $locale;
 
     /**
-     * @var array
-     */
-    protected $defaultPhpMomentMapping = [
-        "yyyy-MM-dd'T'HH:mm:ssZZZZZ" => 'YYYY-MM-DDTHH:mm:ssZZ', // 2014-05-14T13:55:01+02:00
-        "dd-MM-yyyy'T'HH:mm:ssZZZZZ" => 'DD-MM-YYYYTHH:mm:ssZZ', // 14-05-2014T13:55:01+02:00
-        "yyyy-MM-dd"                 => 'YYYY-MM-DD',            // 2014-05-14
-        "dd.MM.yyyy, HH:mm"          => 'DD.MM.YYYY, HH:mm',     // 14.05.2014, 13:55, German format without seconds
-        "dd.MM.yyyy, HH:mm:ss"       => 'DD.MM.YYYY, HH:mm:ss',  // 14.05.2014, 13:55:01, German format with seconds
-        "dd/MM/yyyy"                 => 'DD/MM/YYYY',            // 14/05/2014, British ascending format
-        "dd/MM/yyyy HH:mm"           => 'DD/MM/YYYY HH:mm',      // 14/05/2014 13:55, British ascending format with time
-        "EE, dd/MM/yyyy HH:mm"       => 'ddd, DD/MM/YYYY HH:mm', // Wed, 14/05/2014 13:55, includes day of week in British format
-    ];
-
-    /**
      * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         parent::init();
+
+        if (!isset($this->phpDatetimeFormat)) {
+            $this->phpDatetimeFormat = (($m=\Yii::$app->getModule('datecontrol')) ? \kartik\datecontrol\Module::parseFormat($m->displaySettings['datetime'], 'datetime') : 'Y-m-d H:i:s');
+        }
+
         $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
-        $this->momentDatetimeFormat = $this->momentDatetimeFormat ?: ArrayHelper::getValue(
-            $this->getPhpMomentMappings(),
-            $this->phpDatetimeFormat
-        );
+        $this->momentDatetimeFormat = $this->momentDatetimeFormat ?: FormatConverter::convertDatePhpToMomentJs($this->phpDatetimeFormat);
         if (!$this->momentDatetimeFormat) {
             throw new InvalidConfigException('Please set momentjs datetime format');
         }
@@ -108,7 +93,7 @@ class DateTimeWidget extends InputWidget
         }
 
         if (!isset($this->containerOptions['id'])) {
-            $this->containerOptions['id'] = $this->getId();
+            $this->containerOptions['id'] = $this->getId() . '-cnt';
         }
 
         $this->registerJs();
@@ -184,13 +169,5 @@ class DateTimeWidget extends InputWidget
         $content[] = Html::endTag('span');
 
         return implode("\n", $content);
-    }
-
-    /**
-     * @return array
-     */
-    protected function getPhpMomentMappings()
-    {
-        return array_merge($this->defaultPhpMomentMapping, $this->phpMomentMapping);
     }
 }
